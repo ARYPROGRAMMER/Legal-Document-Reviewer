@@ -6,12 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-
-    const prompt = `You are an Legal Consulting Advisor. Analyze the document given and help users understand and improve their legal documents. The Document is ${body.title}:
-        - The Severities, Risks and the Description of the Document.
-        - A complete breakdown of all changes in the document to make it more legally sound.
-        - Tips (atmost 5) to add in the document to make it more legally sound`;
-
+    const prompt = `You are an Legal Consulting Advisor. Analyze the document given and help users understand and improve their legal documents. The Document is ${body.description}.`;
     const result = await generateObject({
       model,
       schema: DocAnalyzerSchema,

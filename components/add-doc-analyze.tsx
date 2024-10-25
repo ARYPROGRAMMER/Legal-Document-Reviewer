@@ -46,23 +46,25 @@ export default function AddStudyPlan({
           <p>Add a Document</p>
         </TooltipContent>
       </Tooltip>
-      <DialogContent>
+      <DialogContent
+        className="sm:max-w-xl w-full h-[70vh] max-h-screen overflow-y-auto p-6"
+      >
         <DialogHeader>
           <DialogTitle>Analyze Document</DialogTitle>
           <DialogDescription>
-           Enter The Legal Document Content
+            Enter The Legal Document Content
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="title" className="text-right">
-              Document as Text Input : 
+              Text Input:
             </Label>
             <Input
               id="title"
               value={newPlanTitle}
               onChange={(e) => setNewPlanTitle(e.target.value)}
-              className="col-span-3"
+              className="col-span-3 w-full h-24 min-h-[6rem] max-h-[50vh] resize-y border border-gray-300 p-2 rounded-md"
             />
           </div>
         </div>
