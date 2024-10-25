@@ -66,14 +66,14 @@ export function StudyPlansProvider({ children }: { children: ReactNode }) {
   };
 
   useCopilotReadable({
-    description: "This is a list documents to review",
+    description: "This is a document to review",
     value: studyPlans,
   });
 
   useCopilotAction({
     name: "add document",
     description:
-      "Generates a new document to review with a title and description",
+      "Generates a new document to review based on user query and description",
     parameters: [
       {
         name: "title",

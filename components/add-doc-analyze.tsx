@@ -1,8 +1,6 @@
 import { useState } from "react";
-
 import { Plus } from "lucide-react";
-
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import {
   Dialog,
@@ -11,10 +9,17 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogFooter,
 } from "@/components/ui/dialog";
-
-import { Button } from "./ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
+import { Card, CardContent } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function AddStudyPlan({
   onAdd,
@@ -23,55 +28,107 @@ export default function AddStudyPlan({
 }) {
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [newPlanTitle, setNewPlanTitle] = useState<string>("");
+  const [isError, setIsError] = useState<boolean>(false);
 
   const generateNewPlan = () => {
+    if (newPlanTitle.trim().length < 10) {
+      setIsError(true);
+      return;
+    }
+    setIsError(false);
     onAdd(newPlanTitle);
+    setNewPlanTitle("");
+    setIsDialogOpen(false);
+  };
+
+  const handleClose = () => {
+    setNewPlanTitle("");
+    setIsError(false);
     setIsDialogOpen(false);
   };
 
   return (
-    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <DialogTrigger asChild>
-            <Button
-              className="fixed bottom-20 right-6 rounded-full"
-              size="icon"
-            >
-              <Plus className="h-4 w-4" />
+    <TooltipProvider>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <div className="fixed bottom-20 right-6">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                onClick={() => setIsDialogOpen(true)}
+                className="rounded-full shadow-lg hover:shadow-xl transition-all"
+                size="icon"
+              >
+                <Plus className="h-5 w-5" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="left">
+              <p>Add a Document</p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
+
+        <DialogContent className="sm:max-w-2xl w-full">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-semibold">
+              Analyze Document
+            </DialogTitle>
+            <DialogDescription className="text-sm text-muted-foreground">
+              Enter the legal document content below for analysis
+            </DialogDescription>
+          </DialogHeader>
+
+          <Card className="mt-4">
+            <CardContent className="p-4">
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="documentContent" className="text-sm font-medium">
+                    Document Content
+                  </Label>
+                  <Textarea
+                    id="documentContent"
+                    placeholder="Paste or type your legal document content here..."
+                    value={newPlanTitle}
+                    onChange={(e) => {
+                      setNewPlanTitle(e.target.value);
+                      setIsError(false);
+                    }}
+                    className="min-h-[300px] resize-y leading-relaxed"
+                  />
+                </div>
+
+                {isError && (
+                  <Alert variant="destructive">
+                    <AlertDescription>
+                      Please enter at least 10 characters of document content
+                    </AlertDescription>
+                  </Alert>
+                )}
+
+                <div className="text-xs text-muted-foreground">
+                  Tip: For best results, ensure the document is properly formatted
+                  and contains clear legal language
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <DialogFooter className="flex justify-between items-center mt-6 sm:justify-between">
+            <Button variant="outline" onClick={handleClose}>
+              Cancel
             </Button>
-          </DialogTrigger>
-        </TooltipTrigger>
-        <TooltipContent side="left">
-          <p>Add a Document</p>
-        </TooltipContent>
-      </Tooltip>
-      <DialogContent
-        className="sm:max-w-xl w-full h-[70vh] max-h-screen overflow-y-auto p-6"
-      >
-        <DialogHeader>
-          <DialogTitle>Analyze Document</DialogTitle>
-          <DialogDescription>
-            Enter The Legal Document Content
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="title" className="text-right">
-              Text Input:
-            </Label>
-            <Input
-              id="title"
-              value={newPlanTitle}
-              onChange={(e) => setNewPlanTitle(e.target.value)}
-              className="col-span-3 w-full h-24 min-h-[6rem] max-h-[50vh] resize-y border border-gray-300 p-2 rounded-md"
-            />
-          </div>
-        </div>
-        <div className="flex justify-end">
-          <Button onClick={generateNewPlan}>Start Review</Button>
-        </div>
-      </DialogContent>
-    </Dialog>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="default"
+                onClick={generateNewPlan}
+                disabled={newPlanTitle.trim().length === 0}
+                className="px-6"
+              >
+                Start Review
+              </Button>
+            </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </TooltipProvider>
   );
 }

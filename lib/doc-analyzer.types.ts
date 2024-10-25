@@ -16,7 +16,7 @@ export const DocAnalyzerSchema = z.object({
     .describe(
       "The Severities, Risks and the Description of the Document"
     ),
-    DocPlan: z
+  studyPlan: z
     .string()
     .describe(
       "A complete breakdown of all changes in the document to make it more legally sound"
