@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     }
 
     const prompt = `
-    As a Legal Consulting Advisor, first understand the following document:
+    You are a Legal Advisor, first understand the following content:
     
     Document Content: ${body.content}
 
@@ -23,10 +23,11 @@ export async function POST(req: NextRequest) {
 
     {
       "title": "Legal Analysis of Document or any other thing.. as your wish",
-      "content": "A detailed legal analysis of the document.. as your wish.",
+      "content": "The content of the document you got in summarized format",
       "tips": "1. Tip 1\n2. Tip 2\n3. Tip 3\n4. Tip 4\n5. Tip 5...  upto 20 OR 30 tips in new line in more than 500 words",
-      "review": "A very long very long comprehensive review of the document... as per your wish"
-    }`;
+      "review": "A detailed legal analysis of the document, revisions, suggestions etc with A very long very long comprehensive review of the document in more than 1000 words"
+    }`
+    ;
 
     // Generate the analysis
     const result = await generateObject({

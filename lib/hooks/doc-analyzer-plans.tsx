@@ -87,7 +87,7 @@ export function StudyPlansProvider({ children }: { children: ReactNode }) {
       {
         name: "tips",
         description:
-          "Tips (atleast 10) to add in the document to make it more legally sound in markdown format",
+          "Tips (atleast 20) to add in the document to make it more legally sound in markdown format",
         type: "string",
       }, {
         name: "review",

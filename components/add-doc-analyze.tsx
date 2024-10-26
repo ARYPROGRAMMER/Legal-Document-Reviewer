@@ -30,7 +30,7 @@ export default function AddStudyPlan({
   const [isError, setIsError] = useState<boolean>(false);
 
   const generateNewPlan = () => {
-    if (newPlanContent.trim().length < 10) {
+    if (newPlanContent.trim().length < 40) {
       setIsError(true);
       return;
     }
@@ -98,7 +98,7 @@ export default function AddStudyPlan({
                 {isError && (
                   <Alert variant="destructive">
                     <AlertDescription>
-                      Please enter at least 10 characters of document content
+                      Please enter at least 40 characters of document content
                     </AlertDescription>
                   </Alert>
                 )}
