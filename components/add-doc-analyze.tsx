@@ -23,25 +23,25 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 export default function AddStudyPlan({
   onAdd,
 }: {
-  onAdd: (title: string) => void;
+  onAdd: (content: string) => void;
 }) {
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
-  const [newPlanTitle, setNewPlanTitle] = useState<string>("");
+  const [newPlanContent, setNewPlanContent] = useState<string>("");
   const [isError, setIsError] = useState<boolean>(false);
 
   const generateNewPlan = () => {
-    if (newPlanTitle.trim().length < 10) {
+    if (newPlanContent.trim().length < 10) {
       setIsError(true);
       return;
     }
     setIsError(false);
-    onAdd(newPlanTitle);
-    setNewPlanTitle("");
+    onAdd(newPlanContent);
+    setNewPlanContent("");
     setIsDialogOpen(false);
   };
 
   const handleClose = () => {
-    setNewPlanTitle("");
+    setNewPlanContent("");
     setIsError(false);
     setIsDialogOpen(false);
   };
@@ -86,9 +86,9 @@ export default function AddStudyPlan({
                   <Textarea
                     id="documentContent"
                     placeholder="Paste or type your legal document content here..."
-                    value={newPlanTitle}
+                    value={newPlanContent}
                     onChange={(e) => {
-                      setNewPlanTitle(e.target.value);
+                      setNewPlanContent(e.target.value);
                       setIsError(false);
                     }}
                     className="min-h-[300px] resize-y leading-relaxed"
@@ -119,7 +119,7 @@ export default function AddStudyPlan({
               <Button
                 variant="default"
                 onClick={generateNewPlan}
-                disabled={newPlanTitle.trim().length === 0}
+                disabled={newPlanContent.trim().length === 0}
                 className="px-6"
               >
                 Start Review

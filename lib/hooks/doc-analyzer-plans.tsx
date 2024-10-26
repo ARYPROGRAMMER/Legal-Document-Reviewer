@@ -12,7 +12,7 @@ let nextId = 1;
 
 type StudyPlansContextType = {
   filteredStudyPlans: DocPlan[];
-  generateStudyPlan: (title: string) => void;
+  generateStudyPlan: (content: string) => void;
   deleteStudyPlan: (id: string) => void;
   toggleStar: (id: string) => void;
   showStarredOnly: boolean;
@@ -41,10 +41,10 @@ export function StudyPlansProvider({ children }: { children: ReactNode }) {
     setStudyPlans([...studyPlans, { ...plan, id: nextId++ }]);
   };
 
-  const generateStudyPlan = async (title: string) => {
+  const generateStudyPlan = async (content: string) => {
     const response = await fetch("/api/analyzer", {
       method: "POST",
-      body: JSON.stringify({ title }),
+      body: JSON.stringify({ content }),
     });
     const newPlan = await response.json();
 
@@ -71,31 +71,28 @@ export function StudyPlansProvider({ children }: { children: ReactNode }) {
   });
 
   useCopilotAction({
-    name: "add document",
+    name: "Add Document",
     description:
-      "Generates a new document to review based on user query and description",
+      "Generates a new document to review based on user content in markdown format",
     parameters: [
       {
         name: "title",
-        description: "The Idea of the Document as Title",
+        description: "The title of the document to analyze in markdown format",
         type: "string",
-      },
-      {
-        name: "description",
-        description:
-          "The short description of Severities of the document under 100 characters",
-        type: "string",
-      },
-      {
-        name: "studyPlan",
-        description:
-          "A complete breakdown of all changes in the document to make it more legally sound in markdown format",
+      },  {
+        name: "content",
+        description: "The legal text content to analyze in markdown format",
         type: "string",
       },
       {
         name: "tips",
         description:
-          "Tips(atmost 5) to add in the document to make it more legally sound in markdown format",
+          "Tips (atleast 10) to add in the document to make it more legally sound in markdown format",
+        type: "string",
+      }, {
+        name: "review",
+        description:
+          "Provide Legal Review of the document to analyze and provide feedback to the user in markdown format",
         type: "string",
       },
     ],

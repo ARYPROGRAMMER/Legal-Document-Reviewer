@@ -8,7 +8,6 @@
 ### ⭐ About
 A tool which helps non-professional lawyers to understand and improve their legal documents
 
-
 $~$
 
 <details>
@@ -16,7 +15,6 @@ $~$
 
 ![image](screenshots/img2.png)
 ![image](screenshots/img3.png)
-
 
 </details>
 
