@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface StudyPlansListProps {}
 
 const StudyPlansList: React.FC<StudyPlansListProps> = () => {
@@ -73,7 +74,9 @@ const StudyPlansList: React.FC<StudyPlansListProps> = () => {
         description: "The document has been removed successfully.",
         duration: 3000,
       });
-    } catch (error) {
+    } 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    catch (error) {
       toast({
         title: "Error",
         description: "Failed to delete document. Please try again.",
@@ -96,7 +99,9 @@ const StudyPlansList: React.FC<StudyPlansListProps> = () => {
           : "Document has been removed from your starred list.",
         duration: 2000,
       });
-    } catch (error) {
+    } 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    catch (error) {
       toast({
         title: "Error",
         description: "Failed to update document star status.",
