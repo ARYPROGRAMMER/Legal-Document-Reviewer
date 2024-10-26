@@ -46,6 +46,7 @@ export function StudyPlansProvider({ children }: { children: ReactNode }) {
       method: "POST",
       body: JSON.stringify({ content }),
     });
+    
     const newPlan = await response.json();
 
     addStudyPlan({ ...newPlan, starred: false });

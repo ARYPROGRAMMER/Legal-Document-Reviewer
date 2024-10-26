@@ -13,6 +13,7 @@ $~$
 <details>
 <summary>Screenshots</summary>
 
+![Video](https://drive.google.com/file/d/19Je0J6Eh9QprQcmyzdBEpkH9ufwnkmc4/view?usp=sharing)
 ![image](screenshots/img2.png)
 ![image](screenshots/img3.png)
 

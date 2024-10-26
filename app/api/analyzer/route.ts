@@ -31,8 +31,8 @@ export async function POST(req: NextRequest) {
 
     // Generate the analysis
     const result = await generateObject({
-      model,
-      schema: DocAnalyzerSchema,
+      model: model,
+      schema: DocAnalyzerSchema.strict(),
       prompt,
     });
 
@@ -45,7 +45,6 @@ export async function POST(req: NextRequest) {
       review: result.object.review,
       starred: false
     };
-
     return NextResponse.json(docPlan);
   } catch (error) {
     console.error("Error analyzing document:", error);
